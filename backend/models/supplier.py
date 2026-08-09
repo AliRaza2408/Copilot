@@ -12,3 +12,4 @@ class Supplier:
     quality_score: Optional[float] = None
     capacity: Optional[float] = None
     sustainability_score: Optional[float] = None
+    verification_status: dict = field(default_factory=dict)

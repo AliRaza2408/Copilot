@@ -13,7 +13,7 @@ from document_processing.document_service import process_document
 # "test.docx"
 # "test.csv"
 
-filename = "6b65cb29_product_requirements.txt"
+filename = "3da49f41_6b65cb29_product_requirements.txt"
 
 # Build the complete path
 file_path = f"uploads/{filename}"

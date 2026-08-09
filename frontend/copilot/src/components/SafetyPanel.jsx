@@ -8,6 +8,9 @@ export default function SafetyPanel({ data }) {
   const confidence = data.recommendation?.confidence || 'LOW';
   const requiresReview = data.review_required;
 
+  const unverified = issues.filter(i => i.type === 'UNVERIFIED_EXTRACTION');
+  const otherIssues = issues.filter(i => i.type !== 'UNVERIFIED_EXTRACTION');
+
   const getConfidenceColor = (conf) => {
     if (conf === 'HIGH') return 'text-success';
     if (conf === 'MEDIUM') return 'text-warning';
@@ -38,7 +41,39 @@ export default function SafetyPanel({ data }) {
           <span className="text-muted">Missing Requirements:</span>
           <span className="font-bold text-warning">{missing.length}</span>
         </div>
+        <div className="flex justify-between items-center">
+          <span className="text-muted">Unverified Extractions:</span>
+          <span className="font-bold text-danger">{unverified.length}</span>
+        </div>
       </div>
+
+      {unverified.length > 0 && (
+        <div className="mb-4">
+          <h4 className="font-bold text-danger flex items-center gap-2 mb-2">
+            ⚠ Unverified Extractions
+          </h4>
+          <p className="text-xs text-muted mb-2">
+            The AI extracted these values but they could not be confirmed in the source
+            document. They are flagged separately from verified facts and missing data.
+          </p>
+          {unverified.map((item, i) => (
+            <div key={i} className="border-l-4 border-danger bg-danger/5 p-3 mb-2 rounded-r-md">
+              <p className="text-sm text-ink">{item.message}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {otherIssues.length > 0 && (
+        <div className="mb-4">
+          <h4 className="font-bold text-warning flex items-center gap-2 mb-2">Other Issues</h4>
+          {otherIssues.map((item, i) => (
+            <div key={i} className="border-l-4 border-warning bg-warning/5 p-3 mb-2 rounded-r-md">
+              <p className="text-sm text-ink">{item.message}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {requiresReview && (
         <div className="border-l-4 border-warning bg-warning/5 p-4 rounded-r-md">

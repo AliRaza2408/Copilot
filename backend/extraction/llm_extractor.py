@@ -1,6 +1,7 @@
 import os
 import json
 from models.extracted_data import ExtractedRequirement, ExtractedSupplier
+from extraction.grounding_validator import validate_supplier_extraction
 
 class LLMExtractor:
     def __init__(self):
@@ -81,12 +82,15 @@ INSTRUCTIONS:
         if result and "suppliers" in result:
             suppliers = []
             fallback_source = evidence_items[0].get("source", "Unknown") if evidence_items else "Unknown"
+            evidence_text = "\n".join([(e.get("text") or "") for e in evidence_items])
             
             for sup in result["suppliers"]:
                 if "source" not in sup:
                     sup["source"] = fallback_source
                 try:
-                    suppliers.append(ExtractedSupplier(**sup))
+                    extracted = ExtractedSupplier(**sup)
+                    extracted.verification_status = validate_supplier_extraction(extracted, evidence_text)
+                    suppliers.append(extracted)
                 except Exception as e:
                     print(f"Skipping invalid supplier data: {sup}")
             return suppliers

@@ -26,6 +26,7 @@ class ExtractedSupplier(BaseModel):
     certifications: List[str] = []
     capability: Optional[Any] = Field(default=None, alias="manufacturing_capability") # Changed to Any
     source: Optional[str] = "Unknown"
+    verification_status: dict = {}  # per-field: field -> "VERIFIED" | "UNVERIFIED"
 
     class Config:
         populate_by_name = True

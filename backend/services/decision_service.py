@@ -10,6 +10,7 @@ from decision_engine.missing_data import find_missing_requirements
 from services.sensitivity_service import run_sensitivity_analysis
 from reliability.confidence import calculate_confidence
 from reliability.conflict_handler import detect_supplier_conflicts, detect_unknown_constraints
+from reliability.claim_validator import flag_unverified_extractions
 from rag import vector_store, embed_model
 from models.ranking import RankingWeights
 from models.requirements import Requirement
@@ -49,11 +50,23 @@ class DecisionService:
                 
                 if doc_type == "product_requirements":
                     req_evidence.extend(evidence)
-                elif doc_type == "supplier_profile":
+                elif doc_type in ("supplier_profile", "quotation", "quality_report"):
                     sup_evidence.extend(evidence)
-                else:
-                    req_evidence.extend(evidence)
-                    sup_evidence.extend(evidence)
+                elif doc_type in ("policy_document", "unknown"):
+                    # Keep the document for Layer 1 + RAG/Copilot Q&A, but do NOT
+                    # force-feed it into the supplier extraction template. A policy
+                    # manual / standards doc has no concrete supplier data and
+                    # prompts the LLM to fabricate MOQ/lead-time/company names.
+                    issues.append(SystemIssue(
+                        type="DOCUMENT_TYPE_UNSUPPORTED",
+                        severity="MEDIUM",
+                        message=(
+                            f"{Path(file_path).name} classified as '{doc_type}' and "
+                            "was excluded from supplier-field extraction. It remains "
+                            "available for RAG/Copilot Q&A."
+                        ),
+                        requires_review=False
+                    ))
             except Exception as e:
                 issues.append(SystemIssue(
                     type="DOCUMENT_PROCESSING_ERROR",
@@ -69,17 +82,29 @@ class DecisionService:
             vector_store.add(embeddings, all_evidence)
 
         # 2. Dynamic LLM Extraction (with fallback)
-        try:
-            extracted_reqs = self.extractor.extract_requirements(req_evidence)
-            extracted_sups = self.extractor.extract_suppliers(sup_evidence)
-        except Exception as e:
+        extracted_reqs, extracted_sups = [], []
+        if not req_evidence and not sup_evidence:
+            # Nothing qualified for extraction (e.g. only policy/standards docs
+            # were uploaded). Do NOT call the LLM on empty text — it would
+            # fabricate supplier/requirement values out of thin air.
             issues.append(SystemIssue(
-                type="LLM_EXTRACTION_FAILURE",
-                severity="CRITICAL",
-                message="AI extraction service failed.",
-                requires_review=True
+                type="NO_EXTRACTABLE_DOCUMENTS",
+                severity="MEDIUM",
+                message="No supplier or requirement documents were found. Upload a supplier profile/quotation and a product requirements document.",
+                requires_review=False
             ))
-            extracted_reqs, extracted_sups = [], []
+        else:
+            try:
+                extracted_reqs = self.extractor.extract_requirements(req_evidence) if req_evidence else []
+                extracted_sups = self.extractor.extract_suppliers(sup_evidence) if sup_evidence else []
+            except Exception as e:
+                issues.append(SystemIssue(
+                    type="LLM_EXTRACTION_FAILURE",
+                    severity="CRITICAL",
+                    message="AI extraction service failed.",
+                    requires_review=True
+                ))
+                extracted_reqs, extracted_sups = [], []
 
         # Convert to internal models
         requirements = [
@@ -103,7 +128,8 @@ class DecisionService:
                 lead_time_days=sup.lead_time_days,
                 quality_score=sup.quality_score,
                 certifications=sup.certifications,
-                manufacturing_capability=sup.capability
+                manufacturing_capability=sup.capability,
+                verification_status=sup.verification_status
             ) for sup in extracted_sups
         ]
 
@@ -139,6 +165,7 @@ class DecisionService:
         # 5. Reliability Layer (Cross-document checks)
         issues.extend(detect_supplier_conflicts(suppliers))
         issues.extend(detect_unknown_constraints(evaluations))
+        issues.extend(flag_unverified_extractions(suppliers))
         
         confidence = calculate_confidence(evaluations, missing_info, issues)
 
