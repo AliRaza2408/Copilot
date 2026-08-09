@@ -1,0 +1,6 @@
+Supplier Profile: Zeta Industries
+Capability: Plastic Molding
+MOQ: 5000 units
+Lead Time: 90 days
+Quality Score: 45%
+Certifications: None

@@ -1,0 +1,11 @@
+SUPPLIER B
+
+Supplier Name: Beta Manufacturing Ltd
+
+Capability: Mechanical Assembly
+MOQ: 1500 units
+Lead Time: 45 days
+Quality Score: 88
+Certification: ISO 9001
+
+Status: Active supplier

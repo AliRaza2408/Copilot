@@ -1,0 +1,6 @@
+Supplier Profile: Apex Manufacturing
+Capability: Electronic Assembly
+MOQ: 1200 units
+Lead Time: 20 days
+Quality Score: 95%
+Certifications: ISO 9001, ISO 14001

@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-primary: #0F2747;
+  --color-secondary: #1E4D73;
+  --color-accent: #16A6A1;
+
+  /* Text */
+  --color-ink: #17202A;
+  --color-muted: #64748B;
+
+  /* Backgrounds */
+  --color-cloud: #F6F8FA;
+  --color-fog: #F8FAFC;
+  --color-mist: #F1F5F9;
+  --color-frost: #FCFCFD;
+
+  /* Borders */
+  --color-line: #E2E8F0;
+
+  /* System states */
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-danger: #DC2626;
+  --color-waiting: #CBD5E1;
+
+  /* AI decision intelligence */
+  --color-evidence: #2563EB;
+  --color-confidence: #7C3AED;
+  --color-recommendation: #0F766E;
+  --color-processing: #0891B2;
+
+  /* Risk */
+  --color-risk-low: #16A34A;
+  --color-risk-medium: #D97706;
+  --color-risk-high: #DC2626;
+
+  /* Font */
+  --font-sans: Inter, system-ui, sans-serif;
+
+  /* Card radius */
+  --radius-card: 12px;
+}
+
+@layer base {
+  body {
+    @apply bg-cloud text-ink font-sans antialiased;
+  }
+}

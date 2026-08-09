@@ -1,0 +1,44 @@
+[
+    {
+        "source": "430ff8a1_req_01.txt",
+        "file_type": "txt",
+        "page": 1,
+        "text": "Product Requirements:\nThe selected supplier must have ISO 9001 certification.\nMaximum acceptable MOQ is 1000 units.\nLead time must not exceed 30 days.\nMinimum quality score required is 90%."
+    },
+    {
+        "source": "afd79dc5_sup_01_good.txt",
+        "file_type": "txt",
+        "page": 1,
+        "text": "Supplier Profile: Alpha Industries\nCapability: Electronic Assembly\nMOQ: 500 units\nLead Time: 20 days\nQuality Score: 95%\nCertifications: ISO 9001, ISO 14001"
+    },
+    {
+        "source": "6b65cb29_product_requirements.txt",
+        "file_type": "txt",
+        "page": 1,
+        "text": "Product Specifications:\nThe selected supplier must have ISO 9001 certification.\nMaximum acceptable MOQ is 1500 units.\nLead time must not exceed 25 days.\nMinimum quality score required is 92%."
+    },
+    {
+        "source": "dd6a684a_supplier-china-silk.pdf",
+        "file_type": "pdf",
+        "page": 1,
+        "text": "G R E E N F L I P \u2014 G L O B A L H A N D I C R A F T S O U R C I N G\nChina Silk\nTaihu Snow Silk is a Suzhou-based China silk manufacturer found-\ned in 2002, offering custom and wholesale mulberry silk pillowcas-\nes, eye masks, bonnets, bedding, scarves and silk accessories with \nfull OEM/ODM service. Low MOQ. OEKO-TEX certi China.\nOn request MOQ \u00b7 from On request/unit \u00b7 lead on request\nwww.greenflip.org \u00b7 rfq@greenflip.org\nAugust 2026"
+    },
+    {
+        "source": "dd6a684a_supplier-china-silk.pdf",
+        "file_type": "pdf",
+        "page": 2,
+        "text": "GREENFLIP\nChina Silk\nSupplier profile\nMOQ\nOn request\nPrice from\nOn request\nLead time\nOn req.\nCrafts\n1\nAbout\nTaihu Snow Silk is a Suzhou-based China silk manufacturer founded in 2002, offering custom and wholesale mulberry \nsilk pillowcases, eye masks, bonnets, bedding, scarves and silk accessories with full OEM/ODM service. Low MOQ. \nOEKO-TEX certi\nCertifications\nWrap\nOeko-tex\nOEKO-TEX\nCrafts supplied\nSilk Embroidery \u2014 Suzhou-style fine silk embroidery \u2014 panels, apparel, and framed art.\nSample items & indicative pricing\nItem\nMOQ from\nPrice from\nSilk embroidery panel\n40 pcs\n$14/pc\nEmbroidered cushion cover\n150 pcs\n$5/pc\nEmbroidered scarf\n100 pcs\n$8/pc\nFramed embroidery art\n30 pcs\n$20/pc\nCapabilities\n\u2022 Wholesale / bulk supply (MOQ per order)\n\u2022 OEM / private-label production\n\u2022 Custom shapes, finishes, and packaging\n\u2022 FOB / CIF export experience\n\u2022 Export packing and documentation\n\u2022 Sample orders (1\u20135 units) available\nGreenFlip \u00b7 Global Handicraft Bulk Sourcing \u00b7 www.greenflip.org\nrfq@greenflip.org \u00b7 2/4"
+    },
+    {
+        "source": "dd6a684a_supplier-china-silk.pdf",
+        "file_type": "pdf",
+        "page": 3,
+        "text": "GREENFLIP\nFrequently asked questions\nFrequently asked questions\nWhat is the MOQ with China Silk?\nQuoted per order. Sample orders (1\u20135 units) may be available with a development fee.\nLead time with China Silk?\nLead time is confirmed per order, plus 2\u20134 weeks for sea freight depending on destination.\nDoes China Silk offer OEM?\nYes \u2014 China Silk offers OEM / private-label production with custom shapes, finishes, and packaging. OEM minimums \ntypically 200+ units.\nGreenFlip \u00b7 Global Handicraft Bulk Sourcing \u00b7 www.greenflip.org\nrfq@greenflip.org \u00b7 3/4"
+    },
+    {
+        "source": "dd6a684a_supplier-china-silk.pdf",
+        "file_type": "pdf",
+        "page": 4,
+        "text": "GREENFLIP\n \nR E A DY TO S O U R C E ?\nQuote from China Silk\nSubmit one RFQ via GreenFlip and we route it to 1\u20135 verified suppliers matching your \norigin, craft, and use case. Reply within 1 business day.\nwww.greenflip.org/quote\nOr email rfq@greenflip.org\nGreenFlip \u00b7 Global Handicraft Bulk Sourcing \u00b7 www.greenflip.org\nrfq@greenflip.org \u00b7 4/4"
+    }
+]
