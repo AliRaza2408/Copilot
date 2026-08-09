@@ -1,10 +1,10 @@
-# Pages
+# src/pages
 
-## What this folder contains
-- Route-level page components that compose reusable UI components into full screens.
+## Purpose
+Page-level composition of components. Currently contains a single page.
 
-## How it fits into the project
-- Acts as the top-level presentation layer for user-facing workflows.
+## Files
+- `Dashboard.jsx` — **UNUSED / dead code.** It assembles `FileUpload`, `RequirementTable`, `SupplierTable`, `RecommendationCard`, `SensitivityAnalysis`, `ConflictPanel`, and `ReviewPanel`, but is never imported anywhere. `App.jsx` uses `ResultsDashboard` instead. It only sets hardcoded mock data and must not be shown in demos.
 
-## Important notes
-- Keep page logic lightweight by delegating shared behavior to services and components.
+## How it fits into the pipeline
+Not wired into the app. The live UI path is `App.jsx` → `UploadBox` → `ResultsDashboard`.

@@ -1,6 +1,0 @@
-Supplier Profile: Alpha Industries
-Capability: Electronic Assembly
-MOQ: 500 units
-Lead Time: 20 days
-Quality Score: 95%
-Certifications: ISO 9001, ISO 14001

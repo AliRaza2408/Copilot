@@ -20,7 +20,7 @@ function FileUpload({ onUploadComplete }) {
             setLoading(true);
             const result = await uploadDocuments(files);
             onUploadComplete(result);
-        } catch (err) {
+        } catch {
             setError("Unable to upload documents.");
         } finally {
             setLoading(false);

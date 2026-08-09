@@ -1,6 +1,6 @@
 import uuid
 from pathlib import Path
-from document_processing.document_service import process_document
+from document_processing.document_service import process_document, evidence_to_text
 from extraction.llm_extractor import LLMExtractor
 from extraction.document_classifier import classify_document
 from evidence.evidence_extractor import EvidenceExtractor
@@ -44,7 +44,7 @@ class DecisionService:
                         requires_review=True
                     ))
                 
-                combined_text = " ".join([e["text"] for e in evidence])
+                combined_text = " ".join([evidence_to_text(e) for e in evidence])
                 doc_type = classify_document(combined_text)
                 
                 if doc_type == "product_requirements":
@@ -64,7 +64,7 @@ class DecisionService:
 
         # Index evidence for RAG
         if all_evidence:
-            texts = [item["text"] for item in all_evidence]
+            texts = [evidence_to_text(item) for item in all_evidence]
             embeddings = embed_model.encode(texts)
             vector_store.add(embeddings, all_evidence)
 

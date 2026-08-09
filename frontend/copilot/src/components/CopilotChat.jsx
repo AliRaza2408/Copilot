@@ -18,7 +18,7 @@ export default function CopilotChat() {
     try {
       const data = await askCopilot(question);
       setResponse(data);
-    } catch (err) {
+    } catch {
       setError('Could not connect to the AI Copilot.');
     } finally {
       setLoading(false);

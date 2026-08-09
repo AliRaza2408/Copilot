@@ -7,6 +7,27 @@ from .txt_reader import read_txt  # <-- ADD THIS IMPORT
 
 SUPPORTED_EXTENSIONS = {".pdf", ".xlsx", ".xls", ".docx", ".csv", ".txt"}  # <-- ADD .txt
 
+def evidence_to_text(item: dict) -> str:
+    """Extract searchable text from an evidence item, handling both
+    text-based (PDF/DOCX/TXT) and tabular (CSV/XLSX) readers."""
+    text = item.get("text")
+    if text:
+        return str(text)
+    data = item.get("data")
+    if isinstance(data, dict):
+        return "\n".join(f"{key}: {value}" for key, value in data.items() if value)
+    if data is not None:
+        return str(data)
+    return ""
+
+def _normalize_evidence(item: dict) -> dict:
+    """Ensure every evidence item exposes a `text` field so downstream
+    services (RAG, extraction, decision engine) can rely on it."""
+    item = dict(item)
+    if "text" not in item:
+        item["text"] = evidence_to_text(item)
+    return item
+
 def process_document(file_path: str | Path) -> list[dict]:
     """
     Automatically select the correct reader based on the file extension.
@@ -15,14 +36,14 @@ def process_document(file_path: str | Path) -> list[dict]:
     extension = file_path.suffix.lower()
 
     if extension == ".pdf":
-        return read_pdf(file_path)
+        return [_normalize_evidence(item) for item in read_pdf(file_path)]
     if extension in {".xlsx", ".xls"}:
-        return read_excel(file_path)
+        return [_normalize_evidence(item) for item in read_excel(file_path)]
     if extension == ".docx":
-        return read_docx(file_path)
+        return [_normalize_evidence(item) for item in read_docx(file_path)]
     if extension == ".csv":
-        return read_csv(file_path)
+        return [_normalize_evidence(item) for item in read_csv(file_path)]
     if extension == ".txt":           # <-- ADD THIS BLOCK
-        return read_txt(file_path)
+        return [_normalize_evidence(item) for item in read_txt(file_path)]
 
     raise ValueError(f"Unsupported document type: {extension}")

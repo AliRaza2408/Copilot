@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.egg-info/
+
+# Environment / secrets
+.env
+
+# Uploaded data
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Node
+node_modules/
+frontend/copilot/node_modules/
+
+# Model cache (sentence-transformers / huggingface)
+.cache/huggingface/
+HF_HOME/
+
+# Build / test artifacts
+dist/
+.pytest_cache/
+coverage/
+*.log

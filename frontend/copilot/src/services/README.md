@@ -1,10 +1,14 @@
-# Frontend Services
+# src/services
 
-## What this folder contains
-- Client-side service modules that call backend APIs.
+## Purpose
+API client layer that talks to the FastAPI backend.
 
-## How it fits into the project
-- Centralizes HTTP interaction so components stay focused on rendering and state.
+## Files
+- `api.js` — defines `API_BASE_URL = "http://localhost:8000"` and exports four functions:
+  - `uploadDocuments(files)` — `POST /api/upload` — sends files as `FormData` under the `files` key.
+  - `processDecision(files)` — `POST /api/decision/process` — sends files as `FormData`; returns the full decision case (requirements, suppliers, evaluations, ranking, recommendation).
+  - `askCopilot(question)` — `POST /api/copilot/ask` — JSON body `{question}`; returns the RAG answer with facts, recommendation, assumptions, citations.
+  - `submitHumanReview(caseId, status, reason)` — `POST /api/decision/{case_id}/review` — JSON body `{case_id, status, reason}`.
 
-## Important notes
-- Update endpoint paths here when backend routes change.
+## How it fits into the pipeline
+`UploadBox.jsx` and `CopilotChat.jsx`/`ResultsDashboard.jsx` import these functions to drive the whole upload → analyze → review flow.

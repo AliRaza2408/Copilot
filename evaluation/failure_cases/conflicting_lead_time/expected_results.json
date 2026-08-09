@@ -1,0 +1,5 @@
+{
+    "expected_eligibility": "REQUIRES_REVIEW",
+    "expected_confidence": "LOW",
+    "expected_conflicts": ["lead_time_days"]
+}

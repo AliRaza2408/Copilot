@@ -1,0 +1,5 @@
+Quotation: Acme Components
+MOQ: 500 units
+Lead Time: 45 days
+Unit Price: 2.10 USD
+Payment Terms: 30 days net

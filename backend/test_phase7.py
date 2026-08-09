@@ -32,8 +32,8 @@ print("="*50)
 for ev in evaluations:
     print(f"\n{ev['supplier']} -> {ev['eligibility']}")
     for c in ev['constraints']:
-        symbol = "✓" if c.status == "PASS" else "?" if c.status == "UNKNOWN" else "✗"
-        print(f"  {symbol} {c.requirement_name}: {c.status}")
+        symbol = "✓" if c['status'] == "PASS" else "?" if c['status'] == "UNKNOWN" else "✗"
+        print(f"  {symbol} {c['requirement_name']}: {c['status']}")
 
 # 4. Ranking
 print("\n" + "="*50)

@@ -1,5 +1,0 @@
-Product Requirements:
-The selected supplier must have ISO 9001 certification.
-Maximum acceptable MOQ is 1000 units.
-Lead time must not exceed 30 days.
-Minimum quality score required is 90%.

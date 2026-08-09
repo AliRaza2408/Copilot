@@ -1,6 +1,8 @@
 from models.requirements import Requirement
 from models.supplier import Supplier
-from services.decision_service import get_ranked_suppliers
+from models.ranking import RankingWeights
+from decision_engine.constraint_engine import evaluate_supplier
+from decision_engine.ranking import rank_suppliers
 
 # 1. Define Requirements
 requirements = [
@@ -98,7 +100,11 @@ suppliers = [
 ]
 
 # 3. Run Engine
-results = get_ranked_suppliers(suppliers, requirements)
+evaluations = [evaluate_supplier(s, requirements) for s in suppliers]
+results = {
+    "evaluations": evaluations,
+    "rankings": rank_suppliers(suppliers, evaluations, RankingWeights(quality=0.4, lead_time=0.3, moq=0.3))
+}
 
 # 4. Print Results
 for eval_result in results["evaluations"]:
@@ -107,9 +113,9 @@ for eval_result in results["evaluations"]:
     print(f"STATUS: {eval_result['eligibility']}")
     print(f"{'='*40}")
     for constraint in eval_result['constraints']:
-        symbol = "✓" if constraint.status == "PASS" else "?" if constraint.status == "UNKNOWN" else "✗"
-        print(f"{symbol} {constraint.requirement_name}: {constraint.status}")
-        print(f"  -> {constraint.explanation}")
+        symbol = "✓" if constraint['status'] == "PASS" else "?" if constraint['status'] == "UNKNOWN" else "✗"
+        print(f"{symbol} {constraint['requirement_name']}: {constraint['status']}")
+        print(f"  -> {constraint['explanation']}")
 
 print(f"\n{'='*40}")
 print("FINAL RANKINGS (ELIGIBLE ONLY)")

@@ -10,6 +10,7 @@ class DecisionResult(BaseModel):
     ranking: list[Any] = []
     sensitivity_analysis: dict = {}
     conflicts: list[Any] = []
+    issues: list[Any] = []
     missing_information: list[Any] = []
     evidence: list[Any] = []
     recommendation: Any = None
