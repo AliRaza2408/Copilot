@@ -24,3 +24,11 @@ dist/
 .pytest_cache/
 coverage/
 *.log
+
+# version2 original snapshot — keep junk/secrets out of git
+version2/backend/.env
+version2/backend/__pycache__/
+version2/backend/**/__pycache__/
+version2/backend/evidence_index.faiss
+version2/backend/vector_database_export.json
+version2/backend/uploads/*
